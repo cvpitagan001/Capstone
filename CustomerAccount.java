@@ -1,5 +1,6 @@
 public class CustomerAccount extends Helper {
     PAS main = new PAS();
+    Policy policy = new Policy();
     private boolean isAccountExist = true;
     private String accountNo, firstName, lastName, address;
 
@@ -26,6 +27,7 @@ public class CustomerAccount extends Helper {
             store();
         } catch(Exception e) {
             printError("Something went wrong");
+            main.backToMenu();
         }
     }
 
@@ -39,6 +41,7 @@ public class CustomerAccount extends Helper {
             main.backToMenu();
         } catch(Exception e) {
             printError("Customer create failed");
+            main.backToMenu();
         }
     }
 
@@ -68,9 +71,12 @@ public class CustomerAccount extends Helper {
             result = createStmt.executeQuery(query);
 
             if(!result.next()) this.isAccountExist = false;
-            else account = new CustomerAccount(result.getString("account_no"), result.getString("first_name"), result.getString("last_name"), result.getString("address"));
+            else {
+                getAccountDetails(result.getString("account_no"), result.getString("first_name"), result.getString("last_name"), result.getString("address"));
+            }
         } catch(Exception e) {
             printError("Something went wrong");
+            main.backToMenu();
         }
     }
 }

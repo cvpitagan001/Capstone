@@ -44,4 +44,8 @@ public class Helper {
     public String returnError(String msg) {
         return "\nError: " + msg;
     }
+
+    public void getAccountDetails(String accNo, String fname, String lName, String address) {
+        account = new CustomerAccount(accNo, fname, lName, address);
+    }
 }
