@@ -39,8 +39,9 @@ public class PAS extends Helper {
                     backToMenu();
             }
         } catch(Exception e) {
-            printError("Something went wrong");
-            e.printStackTrace();
+            printError(e.toString());
+            get.nextLine();
+            backToMenu();
         }
     }
 
@@ -60,7 +61,9 @@ public class PAS extends Helper {
                 backToMenu();
             }
         } catch(Exception e) {
-            printError("Something went wrong");
+            printError(e.toString());
+            get.nextLine();
+            backToMenu();
         }
     }
 

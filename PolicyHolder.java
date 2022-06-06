@@ -46,4 +46,8 @@ public class PolicyHolder extends Helper {
             main.backToMenu();
         }
     }
+
+    public LocalDate getDriversLicenseIssued() {
+        return driversLicenseIssued;
+    }
 }

@@ -14,6 +14,7 @@ public class Helper {
     static CustomerAccount account;
     Policy policy;
     PolicyHolder policyHolder;
+    Vehicle vehicle;
     
     public void connect() {
         try {

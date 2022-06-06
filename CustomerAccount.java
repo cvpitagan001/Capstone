@@ -75,7 +75,8 @@ public class CustomerAccount extends Helper {
                 getAccountDetails(result.getString("account_no"), result.getString("first_name"), result.getString("last_name"), result.getString("address"));
             }
         } catch(Exception e) {
-            printError("Something went wrong");
+            printError(e.toString());
+            get.nextLine();
             main.backToMenu();
         }
     }
