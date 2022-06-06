@@ -1,11 +1,10 @@
 import java.time.LocalDate;
 import java.time.Period;
-import java.sql.*;
 
 public class PolicyHolder extends Helper {
     PAS main = new PAS();
     Policy policy = new Policy();
-    private String firstName, lastName, driversLicenseNum, type;
+    private String firstName, lastName, driversLicenseNum, type, uuid;
     private LocalDate dateOfBirth, driversLicenseIssued;
 
     public void load() {
@@ -24,6 +23,7 @@ public class PolicyHolder extends Helper {
             String dateIssued = get.nextLine();
             this.driversLicenseIssued = LocalDate.parse(dateIssued);
             this.type = account.getFirstName().equals(firstName) && account.getLastName().equals(lastName) ? "account_owner" : "dependent";
+            uuid = getUUID(); 
 
             store();
         } catch(Exception e) {
@@ -35,21 +35,27 @@ public class PolicyHolder extends Helper {
     public void store() {
         try {
             connect();
-            String query = "INSERT INTO policy_holder (customer_acc_no, type, first_name, last_name, date_of_birth, dv_license_num, dv_license_issued) " +
-            "VALUES('"+ account.getAccountNo() +"','"+ this.type +"', '"+ this.firstName +"', '"+ this.lastName +"', '"+ this.dateOfBirth +"', '"+ this.driversLicenseNum +"', '"+ this.driversLicenseIssued +"')";
-            createStmt = conn.createStatement();
-            createStmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
-            result = createStmt.getGeneratedKeys();
-            if(result.next()) policy.update(result.getInt(1));
+            System.out.println(uuid);
+            String query = "INSERT INTO policy_holder (uuid, customer_acc_no, type, first_name, last_name, date_of_birth, dv_license_num, dv_license_issued) " +
+            "VALUES('"+ uuid +"', '"+ account.getAccountNo() +"','"+ this.type +"', '"+ this.firstName +"', '"+ this.lastName +"', '"+ this.dateOfBirth +"', '"+ this.driversLicenseNum +"', '"+ this.driversLicenseIssued +"')";
+            prep = conn.prepareStatement(query);
+            prep.execute();
+            policy.update(uuid);
         } catch(Exception e) {
             e.printStackTrace();
-            printError("Policy holder create failed");
+            printError("Policy holder creation failed");
             main.backToMenu();
         }
+    }
+
+    public String getOwnUUID() {
+        return uuid;
     }
 
     public int getDlx() {
         LocalDate today = LocalDate.now();
         return Period.between(driversLicenseIssued, today).getYears();
     }
+    
+
 }

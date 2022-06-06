@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.UUID;
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -48,5 +49,11 @@ public class Helper {
 
     public void getAccountDetails(String accNo, String fname, String lName, String address) {
         account = new CustomerAccount(accNo, fname, lName, address);
+    }
+
+    public String getUUID() {
+        String getUuid = UUID.randomUUID().toString();
+        getUuid = getUuid.replaceAll("-", "");
+        return getUuid;
     }
 }

@@ -43,10 +43,10 @@ public class Policy extends Helper {
         }
     }
 
-    public void update(int policyHolderId) {
+    public void update(String policyHolderUuid) {
         try {
             connect();
-            String query = "UPDATE policy SET policy_holder_id = '"+ policyHolderId +"' WHERE policy_no='"+ policyNo +"'";
+            String query = "UPDATE policy SET policy_holder_uuid = '"+ policyHolderUuid +"' WHERE policy_no='"+ policyNo +"'";
             prep = conn.prepareStatement(query);
             prep.execute();
         } catch(Exception e) {
@@ -54,6 +54,10 @@ public class Policy extends Helper {
             printError("Policy update failed");
             main.backToMenu();
         }
+    }
+
+    public String getPolicyNo() {
+        return policyNo;
     }
     
 }

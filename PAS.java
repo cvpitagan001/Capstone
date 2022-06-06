@@ -31,7 +31,7 @@ public class PAS extends Helper {
                 case 2:
                     policy.load();
                     policyHolder.load();
-                    vehicle.load(policyHolder.getDlx());
+                    vehicle.load(policyHolder.getDlx(), account.getAccountNo(), policyHolder.getOwnUUID(), policy.getPolicyNo());
                     break;
                 case 8: 
                     System.exit(0);
