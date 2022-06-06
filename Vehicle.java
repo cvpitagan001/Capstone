@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Vehicle extends PolicyHolder {
     PAS main = new PAS();
     RatingEngine rate = new RatingEngine();
@@ -5,7 +7,7 @@ public class Vehicle extends PolicyHolder {
     private int year;
     private double purchasePrice, premiumCharged;
 
-    public void load() {
+    public void load(int dlx) {
         try {
             System.out.println("--Vehicle Details--");
             System.out.print("How many vehicles do you want to insured: ");
@@ -25,9 +27,12 @@ public class Vehicle extends PolicyHolder {
                 fuelType = get.next().trim();
                 System.out.print("Purchase price: ");
                 purchasePrice = get.nextDouble();
-                System.out.println(getDriversLicenseIssued());
-                // premiumCharged = (purchasePrice * rate.getVpf(year)) + (purchasePrice/100);
-            
+                get.nextLine();
+                premiumCharged = (purchasePrice * rate.getVpf(year)) + ((purchasePrice/100)/dlx);
+
+                System.out.printf("Premium Charged: %.2f", premiumCharged);
+                
+                x++;
             }
             
         } catch(Exception e) {

@@ -9,6 +9,7 @@ public class PAS extends Helper {
         account = new CustomerAccount("accountNo", "firstName", "lastName", "address");
         policy = new Policy();
         policyHolder = new PolicyHolder();
+        vehicle = new Vehicle();
         try {
             System.out.println("The Automobile Insurance Policy and Claims Administration System (PAS) Specification\n");   
             System.out.println("[1] Create new customer account");
@@ -30,6 +31,7 @@ public class PAS extends Helper {
                 case 2:
                     policy.load();
                     policyHolder.load();
+                    vehicle.load(policyHolder.getDlx());
                     break;
                 case 8: 
                     System.exit(0);

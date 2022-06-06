@@ -6,9 +6,9 @@ public class Policy extends Helper {
     private LocalDate effectiveDate, expirationDate;
     
     public void load() {
-            clrscr();
+        clrscr();
        try {
-            System.out.println("Get a policy qoute and buy the policy\n");
+            System.out.println("--Get a policy qoute and buy the policy--");
             account.checkAccountIfExist();
             if(account.isAccountExist() == false) {
                 printError("Account number doesn't exist");
@@ -33,7 +33,8 @@ public class Policy extends Helper {
     public void store() {
         try {
             connect();
-            String query = "INSERT INTO policy (policy_no, customer_acc_no, effective_date, expiry_date) VALUES('"+ policyNo +"', '"+ account.getAccountNo() +"', '"+ this.effectiveDate +"', '"+ this.expirationDate +"')";
+            String query = "INSERT INTO policy (policy_no, customer_acc_no, effective_date, expiry_date)" +  
+            "VALUES('"+ policyNo +"', '"+ account.getAccountNo() +"', '"+ this.effectiveDate +"', '"+ this.expirationDate +"')";
             prep = conn.prepareStatement(query);
             prep.execute();
         } catch(Exception e) {

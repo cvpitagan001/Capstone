@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.Period;
 import java.sql.*;
 
 public class PolicyHolder extends Helper {
@@ -9,7 +10,7 @@ public class PolicyHolder extends Helper {
 
     public void load() {
         try {
-            System.out.println("\nPolicy Holder Details");
+            System.out.println("--Policy Holder Details--");
             System.out.print("Enter first name: ");
             this.firstName = get.nextLine();
             System.out.print("Enter last name: ");
@@ -47,7 +48,8 @@ public class PolicyHolder extends Helper {
         }
     }
 
-    public LocalDate getDriversLicenseIssued() {
-        return driversLicenseIssued;
+    public int getDlx() {
+        LocalDate today = LocalDate.now();
+        return Period.between(driversLicenseIssued, today).getYears();
     }
 }
