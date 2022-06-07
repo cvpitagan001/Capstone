@@ -14,6 +14,7 @@ public class Helper {
     LocalDate date;
     static CustomerAccount account;
     static Policy policy;
+    static Claim claim;
     PolicyHolder policyHolder;
     Vehicle vehicle;
     
@@ -59,5 +60,9 @@ public class Helper {
 
     public void getPolicyDetails(String policyNo, String effectiveDate, String expiryDate, String status) {
         policy = new Policy(policyNo, effectiveDate, expiryDate, status);
+    }
+
+    public void getClaimDetails(String claimNo, String dateOfAccident, String addressAccidentHappened, String descriptionOfAccident, String descriptionOfVehicleDamage, double estimatedCostOfRepair) {
+        claim = new Claim(claimNo, dateOfAccident, addressAccidentHappened, descriptionOfAccident, descriptionOfVehicleDamage, estimatedCostOfRepair);
     }
 }

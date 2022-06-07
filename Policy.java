@@ -143,6 +143,10 @@ public class Policy extends Helper {
         return status;
     }
 
+    public boolean getIsPolicyExist() {
+        return isPolicyExist;
+    }
+
     public void tryAgain(String msg) {
         System.out.print("\nError: " + msg + "\nTry Again? [1]Yes [2]No: ");
         int opt = get.nextInt();

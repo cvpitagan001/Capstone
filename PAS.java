@@ -6,11 +6,11 @@ public class PAS extends Helper {
     }
 
     public void mainMenu() {
-        account = new CustomerAccount("accountNo", "Charles", "Pitagan", "address");
-        policy = new Policy("policyNo", "effectiveDate", "expirationDate", "status");
+        account = new CustomerAccount("", "", "", "");
+        policy = new Policy("", "", "", "");
         policyHolder = new PolicyHolder();
-        vehicle = new Vehicle("make", "model", "type", "fuelType", "uuid", 0, 0.0, 0.0);
-
+        vehicle = new Vehicle("", "", "", "", "", 0, 0.0, 0.0);
+        claim = new Claim("", "", "", "", "", 0.0);
         try {
             System.out.println("The Automobile Insurance Policy and Claims Administration System (PAS) Specification\n");   
             System.out.println("[1] Create new customer account");
@@ -36,10 +36,14 @@ public class PAS extends Helper {
                     break;
                 case 3:
                     policy.cancelPolicy();
+                case 4:
+                    claim.load();
                 case 5:
                     account.display();
                 case 6:
                     policy.display();
+                case 7:
+                    claim.display();
                 case 8: 
                     System.exit(0);
                 default: 
