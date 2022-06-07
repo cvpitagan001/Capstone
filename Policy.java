@@ -2,8 +2,7 @@ import java.time.LocalDate;
 
 public class Policy extends Helper {
     PAS main = new PAS();
-    private String policyNo;
-    private LocalDate effectiveDate, expirationDate;
+    private String policyNo, effectiveDate, expirationDate;
 
     public void load() {
         clrscr();
@@ -16,23 +15,23 @@ public class Policy extends Helper {
                 int generateNum = rand.nextInt(999999);
                 policyNo = String.format("%06d", generateNum);
                 System.out.print("Enter effective date (YYYY-MM-DD): ");
-                String inputDate = get.nextLine();
-                this.effectiveDate = LocalDate.parse(inputDate);
-                this.expirationDate = this.effectiveDate.plusMonths(6);
-                System.out.println("Expiration date: " + this.expirationDate);
+                this.effectiveDate = get.next().trim();
+                LocalDate effectDate = LocalDate.parse(this.effectiveDate);
+                LocalDate expireDate = effectDate.plusMonths(6);
+                System.out.println("Expiration date: " + expireDate);
 
-                store();
+                store(effectDate, expireDate);
             }
        } catch(Exception e) {
             tryAgain(e.toString());
        }
     }
 
-    public void store() {
+    public void store(LocalDate effDate, LocalDate expireDate) {
         try {
             connect();
             String query = "INSERT INTO policy (policy_no, customer_acc_no, effective_date, expiry_date)" +  
-            "VALUES('"+ policyNo +"', '"+ account.getAccountNo() +"', '"+ this.effectiveDate +"', '"+ this.expirationDate +"')";
+            "VALUES('"+ policyNo +"', '"+ account.getAccountNo() +"', '"+ effDate +"', '"+ expireDate +"')";
             prep = conn.prepareStatement(query);
             prep.execute();
         } catch(Exception e) {
