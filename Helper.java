@@ -13,7 +13,7 @@ public class Helper {
     ResultSet result;
     LocalDate date;
     static CustomerAccount account;
-    Policy policy;
+    static Policy policy;
     PolicyHolder policyHolder;
     Vehicle vehicle;
     
@@ -55,5 +55,9 @@ public class Helper {
         String getUuid = UUID.randomUUID().toString();
         getUuid = getUuid.replaceAll("-", "");
         return getUuid;
+    }
+
+    public void getPolicyDetails(String policyNo, String effectiveDate, String expiryDate, String status) {
+        policy = new Policy(policyNo, effectiveDate, expiryDate, status);
     }
 }

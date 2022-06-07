@@ -7,7 +7,7 @@ public class PAS extends Helper {
 
     public void mainMenu() {
         account = new CustomerAccount("accountNo", "Charles", "Pitagan", "address");
-        policy = new Policy("policyNo", "effectiveDate", "expirationDate");
+        policy = new Policy("policyNo", "effectiveDate", "expirationDate", "status");
         policyHolder = new PolicyHolder();
         vehicle = new Vehicle("make", "model", "type", "fuelType", "uuid", 0, 0.0, 0.0);
 
@@ -29,15 +29,17 @@ public class PAS extends Helper {
                 case 1: 
                     account.load();
                     break;
-                case 3:
-                    policy.cancelPolicy();
                 case 2:
                     policy.load();
                     policyHolder.load(policy.getPolicyNo());
                     vehicle.load(policyHolder.getDlx(), account.getAccountNo(), policyHolder.getOwnUUID(), policy.getPolicyNo());
                     break;
+                case 3:
+                    policy.cancelPolicy();
                 case 5:
                     account.display();
+                case 6:
+                    policy.display();
                 case 8: 
                     System.exit(0);
                 default: 

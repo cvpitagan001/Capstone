@@ -2,12 +2,14 @@ import java.time.LocalDate;
 
 public class Policy extends Helper {
     PAS main = new PAS();
-    private String policyNo, effectiveDate, expirationDate;
+    private String policyNo, effectiveDate, expirationDate, status;
+    private boolean isPolicyExist = true;
 
-    public Policy(String policyNo, String effectiveDate, String expirationDate) {
+    public Policy(String policyNo, String effectiveDate, String expirationDate, String status) {
         this.policyNo = policyNo;
         this.effectiveDate = effectiveDate;
         this.expirationDate = expirationDate;
+        this.status = status;
     }
 
     public void load() {
@@ -65,7 +67,8 @@ public class Policy extends Helper {
             System.out.println("\n--Cancel Policy--");
             System.out.print("Enter policy no.: ");
             String policyNum = get.next().trim();
-            if(!checkIfPolicyExist(policyNum)) {
+            selectPolicy(policyNum);
+            if(isPolicyExist == false) {
                 printError("Policy doesn't exist");
                 main.backToMenu();
             } else {
@@ -84,23 +87,60 @@ public class Policy extends Helper {
         }
     }
 
-    public boolean checkIfPolicyExist(String policyNo) {
+    public void selectPolicy(String policyNo) {
         try {
             connect();
             String query = "SELECT * FROM policy WHERE policy_no='"+ policyNo +"'";
             result = createStmt.executeQuery(query);
-            if(!result.next()) return false;
-            return true;
+            if(!result.next()) isPolicyExist = false;
+            else {
+                getPolicyDetails(result.getString("policy_no"),
+                                result.getString("effective_date"),
+                                result.getString("expiry_date"),
+                                result.getString("status")
+                                );
+            }
         } catch(Exception e) {
             printError(e.toString());
             main.backToMenu();
         }
+    }
 
-        return false;
+    public void display() {
+        clrscr();
+        try {
+            System.out.print("Enter policy no: ");
+            String policyNum = get.next().trim();
+            selectPolicy(policyNum);
+            if(isPolicyExist == false) {
+                printError("Policy doesn't exist");
+                main.backToMenu();
+            } else {
+                System.out.println("\n[Policy Details]");
+                System.out.format("%-15s %-15s %-15s %-15s%n", "PolicyNo", "EffectiveDate", "ExpiryDate", "Status");
+                System.out.format("%-15s %-15s %-15s %-15s%n", policy.getPolicyNo(), policy.getEffectiveDate(), policy.getExpirationDate(), policy.getStatus());
+                main.backToMenu();
+            }
+        } catch(Exception e) {
+            printError(e.toString());
+            main.backToMenu();
+        }
     }
 
     public String getPolicyNo() {
         return policyNo;
+    }
+
+    public String getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public void tryAgain(String msg) {
