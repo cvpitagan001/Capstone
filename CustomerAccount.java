@@ -1,6 +1,5 @@
 public class CustomerAccount extends Helper {
     PAS main = new PAS();
-    Policy policy = new Policy();
     private boolean isAccountExist = true;
     private String accountNo, firstName, lastName, address;
 
@@ -37,6 +36,7 @@ public class CustomerAccount extends Helper {
             String query = "INSERT INTO customer_acc (account_no, first_name, last_name, address) VALUES('"+this.accountNo+"', '"+this.firstName+"', '"+this.lastName+"', '"+this.address+"')";
             prep = conn.prepareStatement(query);
             prep.execute();
+            System.out.println("Account No: " + accountNo);
             printSuccess("Customer account has been created");
             main.backToMenu();
         } catch(Exception e) {
@@ -55,6 +55,10 @@ public class CustomerAccount extends Helper {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public boolean isAccountExist() {
@@ -79,6 +83,33 @@ public class CustomerAccount extends Helper {
             get.nextLine();
             main.backToMenu();
         }
+    }
+
+    public void display() {
+        clrscr();
+        try {
+            checkAccountIfExist();
+            if(isAccountExist == false) {
+                tryAgain("Account doesn't exist");
+            } else {
+                System.out.println("\n[Account Details]");
+                System.out.format("%-15s %-15s %-15s %-15s%n", "AccountNo", "Firstname", "Lastname", "Address");
+                System.out.format("%-15s %-15s %-15s %-15s%n", account.getAccountNo(), account.getFirstName(), account.getLastName(), account.getAddress());
+                main.backToMenu();
+            }
+        } catch(Exception e) {
+            printError(e.toString());
+            main.backToMenu();
+        }
+    }
+
+    public void tryAgain(String msg) {
+        System.out.print("\nError: " + msg + "\nTry Again? [1]Yes [2]No: ");
+        int opt = get.nextInt();
+        get.nextLine();
+
+        if(opt == 1) display();
+        else main.backToMenu();
     }
 
 }

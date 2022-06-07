@@ -7,7 +7,7 @@ public class PolicyHolder extends Helper {
     private String firstName, lastName, driversLicenseNum, type, uuid;
     private LocalDate dateOfBirth, driversLicenseIssued;
 
-    public void load() {
+    public void load(String policyNo) {
         try {
             System.out.println("--Policy Holder Details--");
             System.out.print("Enter first name: ");
@@ -25,22 +25,21 @@ public class PolicyHolder extends Helper {
             this.type = account.getFirstName().equals(firstName) && account.getLastName().equals(lastName) ? "account_owner" : "dependent";
             uuid = getUUID(); 
 
-            store();
+            store(policyNo);
         } catch(Exception e) {
             printError("Something went wrong");
             main.backToMenu();
         }
     }
 
-    public void store() {
+    public void store(String policyNo) {
         try {
             connect();
-            System.out.println(uuid);
             String query = "INSERT INTO policy_holder (uuid, customer_acc_no, type, first_name, last_name, date_of_birth, dv_license_num, dv_license_issued) " +
             "VALUES('"+ uuid +"', '"+ account.getAccountNo() +"','"+ this.type +"', '"+ this.firstName +"', '"+ this.lastName +"', '"+ this.dateOfBirth +"', '"+ this.driversLicenseNum +"', '"+ this.driversLicenseIssued +"')";
             prep = conn.prepareStatement(query);
             prep.execute();
-            policy.update(uuid);
+            policy.update("policy_holder_uuid", uuid, policyNo);
         } catch(Exception e) {
             e.printStackTrace();
             printError("Policy holder creation failed");
@@ -57,5 +56,4 @@ public class PolicyHolder extends Helper {
         return Period.between(driversLicenseIssued, today).getYears();
     }
     
-
 }
