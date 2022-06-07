@@ -71,26 +71,6 @@ public class CustomerAccount extends Helper {
         }
     }
 
-    public String getAccountNo() {
-        return accountNo;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public boolean isAccountExist() {
-        return isAccountExist;
-    }
-
     //check account if exist using account number
     public void checkAccountIfExist() {
         try {
@@ -145,6 +125,27 @@ public class CustomerAccount extends Helper {
         if(opt == 1 && purpose == "load") load();
         if(opt == 1 && purpose == "display") display();
         else main.backToMenu();
+    }
+
+    
+    public String getAccountNo() {
+        return accountNo;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public boolean isAccountExist() {
+        return isAccountExist;
     }
 
 }
