@@ -12,6 +12,7 @@ public class Policy extends Helper {
         this.status = status;
     }
 
+    //user input for policy details
     public void load() {
         clrscr();
        try {
@@ -36,6 +37,7 @@ public class Policy extends Helper {
        }
     }
 
+    //store policy details on database
     public void store(LocalDate effDate, LocalDate expireDate) {
         try {
             connect();
@@ -49,6 +51,7 @@ public class Policy extends Helper {
         }
     }
 
+    //update policy details on database
     public void update(String field, String value, String policyNo) {
         try {
             connect();
@@ -62,6 +65,7 @@ public class Policy extends Helper {
         }
     }
 
+    //cancel policy
     public void cancelPolicy() {
         try {
             clrscr();
@@ -88,6 +92,7 @@ public class Policy extends Helper {
         }
     }
 
+    //get policy base on policy number
     public void selectPolicy(String policyNo) {
         try {
             connect();
@@ -107,6 +112,7 @@ public class Policy extends Helper {
         }
     }
 
+    //search and display policy details using policy number
     public void display() {
         clrscr();
         try {

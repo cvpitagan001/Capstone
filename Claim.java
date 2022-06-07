@@ -15,6 +15,7 @@ public class Claim extends Helper {
         this.estimatedCostOfRepair = estimatedCostOfRepair;
     }
 
+    //user input for claim details
     public void load() {
         clrscr();
         try {
@@ -46,7 +47,7 @@ public class Claim extends Helper {
         }
     }
 
-    
+    //store claim details on database
     public void store(String policyNo) {
         try {
             connect();
@@ -62,7 +63,7 @@ public class Claim extends Helper {
         }
     }
 
-
+    //get claim details base on the claim number that the user inputted
     public void selectClaim() {
         try {
             clrscr();
@@ -86,6 +87,7 @@ public class Claim extends Helper {
         }
     }
 
+    //display claim details base on the claim number
     public void display() {
         clrscr();
         try {

@@ -3,6 +3,7 @@ import java.time.LocalDate;
 public class RatingEngine {
     private double vpf;
 
+    //get vehicle price factor
     public double getVpf(int year) {
         int ageOfVehicle = LocalDate.now().getYear() - year;
         if(ageOfVehicle >= 0 && ageOfVehicle < 3) return 0.01;

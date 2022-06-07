@@ -10,10 +10,11 @@ public class CustomerAccount extends Helper {
         this.address = address;
     }
 
+    //user input for customer account
     public void load() {
         clrscr();
         try {
-            System.out.println("Creation of Account\n");
+            System.out.println("[Creation of Account]\n");
             int generateNum = rand.nextInt(9999);
             this.accountNo = String.format("%04d", generateNum);
             System.out.print("Enter first name: ");
@@ -23,13 +24,37 @@ public class CustomerAccount extends Helper {
             System.out.print("Enter address: ");
             this.address = get.nextLine();
 
-            store();
+            checkAccountViaName();
+            if(isAccountExist == false) store();
+            else {
+                tryAgain("Account is already exist", "load");
+            }
         } catch(Exception e) {
             printError("Something went wrong");
             main.backToMenu();
         }
     }
 
+    //check account if exist through firstname and lastname
+    private void checkAccountViaName() {
+        try {
+            connect();
+            String query = "SELECT * FROM customer_acc WHERE first_name = '"+ firstName +"' AND last_name = '"+ lastName +"'  ";
+            result = createStmt.executeQuery(query);
+
+            if(!result.next()) this.isAccountExist = false;
+            else {
+                isAccountExist = true;
+                getAccountDetails(result.getString("account_no"), result.getString("first_name"), result.getString("last_name"), result.getString("address"));
+            }
+        } catch(Exception e) {
+            printError(e.toString());
+            get.nextLine();
+            main.backToMenu();
+        }
+    }
+
+    //store customer account details on database
     public void store() {
         try {
             connect();
@@ -66,6 +91,7 @@ public class CustomerAccount extends Helper {
         return isAccountExist;
     }
 
+    //check account if exist using account number
     public void checkAccountIfExist() {
         try {
             connect();
@@ -77,6 +103,7 @@ public class CustomerAccount extends Helper {
 
             if(!result.next()) this.isAccountExist = false;
             else {
+                isAccountExist = true;
                 getAccountDetails(result.getString("account_no"), result.getString("first_name"), result.getString("last_name"), result.getString("address"));
             }
         } catch(Exception e) {
@@ -86,12 +113,18 @@ public class CustomerAccount extends Helper {
         }
     }
 
+    //search and display account details
     public void display() {
         clrscr();
         try {
-            checkAccountIfExist();
+            System.out.println("[Search Account]");
+            System.out.print("Enter first name: ");
+            this.firstName = get.next().trim();
+            System.out.print("Enter last name: ");
+            this.lastName = get.next().trim();
+            checkAccountViaName();
             if(isAccountExist == false) {
-                tryAgain("Account doesn't exist");
+                tryAgain("Account doesn't exist", "display");
             } else {
                 System.out.println("\n[Account Details]");
                 System.out.format("%-15s %-15s %-15s %-15s%n", "AccountNo", "Firstname", "Lastname", "Address");
@@ -104,12 +137,13 @@ public class CustomerAccount extends Helper {
         }
     }
 
-    public void tryAgain(String msg) {
+    public void tryAgain(String msg, String purpose) {
         System.out.print("\nError: " + msg + "\nTry Again? [1]Yes [2]No: ");
         int opt = get.nextInt();
         get.nextLine();
 
-        if(opt == 1) display();
+        if(opt == 1 && purpose == "load") load();
+        if(opt == 1 && purpose == "display") display();
         else main.backToMenu();
     }
 

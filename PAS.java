@@ -5,6 +5,7 @@ public class PAS extends Helper {
         main.mainMenu();
     }
 
+    // Menu
     public void mainMenu() {
         account = new CustomerAccount("", "", "", "");
         policy = new Policy("", "", "", "");
@@ -58,6 +59,7 @@ public class PAS extends Helper {
         }
     }
 
+    //Back to menu
     public void backToMenu() {
         try {
             System.out.print("\nGo back to menu? Press [1]YES [2]NO: ");

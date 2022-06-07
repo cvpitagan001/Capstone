@@ -20,6 +20,7 @@ public class Vehicle extends PolicyHolder {
         this.premiumCharged = premiumCharged;
     }
 
+    //user input for vehicle details
     public void load(int dlx, String accountNo, String policyHolderUuid, String policyNo) {
         try {
             System.out.println("--Vehicle Details--");
@@ -57,6 +58,7 @@ public class Vehicle extends PolicyHolder {
         }
     }
 
+    //display vehicle details
     public void display(String accountNo, String policyNo, String policyHolderUuid) {
         clrscr();
         System.out.format("%n%-30s%n", "[Policy Holder Details]");
@@ -74,6 +76,7 @@ public class Vehicle extends PolicyHolder {
         buyPolicy(accountNo, policyNo, policyHolderUuid);
     }
 
+    //buy policy
     public void buyPolicy(String accountNo, String policyNo, String policyHolderUuid) {
         try {
             System.out.print("\n\nDo you want to buy this Policy? [1]Yes [2]No: ");
@@ -94,7 +97,7 @@ public class Vehicle extends PolicyHolder {
         }
     }
 
-
+    //store vehicle details on database
     public void store(String accountNo, String policyNo, String policyHolderUuid) {
         try {
             for (Vehicle vehicle : list) {
@@ -110,7 +113,7 @@ public class Vehicle extends PolicyHolder {
         }
     }
 
-    
+    //delete policy and policy holder from db if the user wont buy the policy
     public void deleteFromDb(String table, String field, String value) {
         try {
             connect();

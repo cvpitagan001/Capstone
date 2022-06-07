@@ -7,6 +7,7 @@ public class PolicyHolder extends Helper {
     private String firstName, lastName, driversLicenseNum, type, uuid;
     private LocalDate dateOfBirth, driversLicenseIssued;
 
+    //user input for policy holder details
     public void load(String policyNo) {
         try {
             System.out.println("--Policy Holder Details--");
@@ -32,6 +33,7 @@ public class PolicyHolder extends Helper {
         }
     }
 
+    //store policy holder details on database
     public void store(String policyNo) {
         try {
             connect();
@@ -47,10 +49,12 @@ public class PolicyHolder extends Helper {
         }
     }
 
+    //get self uuid
     public String getOwnUUID() {
         return uuid;
     }
 
+    //get num of years since driver license was first issued 
     public int getDlx() {
         LocalDate today = LocalDate.now();
         return Period.between(driversLicenseIssued, today).getYears();
