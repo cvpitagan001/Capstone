@@ -30,7 +30,7 @@ public class CustomerAccount extends Helper {
                 tryAgain("Account is already exist", "load");
             }
         } catch(Exception e) {
-            printError("Something went wrong");
+            printError(e.toString());
             main.backToMenu();
         }
     }

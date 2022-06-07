@@ -37,14 +37,19 @@ public class PAS extends Helper {
                     break;
                 case 3:
                     policy.cancelPolicy();
+                    break;
                 case 4:
                     claim.load();
+                    break;
                 case 5:
                     account.display();
+                    break;
                 case 6:
                     policy.display();
+                    break;
                 case 7:
                     claim.display();
+                    break;
                 case 8: 
                     System.exit(0);
                 default: 
