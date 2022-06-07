@@ -4,6 +4,12 @@ public class Policy extends Helper {
     PAS main = new PAS();
     private String policyNo, effectiveDate, expirationDate;
 
+    public Policy(String policyNo, String effectiveDate, String expirationDate) {
+        this.policyNo = policyNo;
+        this.effectiveDate = effectiveDate;
+        this.expirationDate = expirationDate;
+    }
+
     public void load() {
         clrscr();
        try {

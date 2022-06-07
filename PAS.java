@@ -7,7 +7,7 @@ public class PAS extends Helper {
 
     public void mainMenu() {
         account = new CustomerAccount("accountNo", "Charles", "Pitagan", "address");
-        policy = new Policy();
+        policy = new Policy("policyNo", "effectiveDate", "expirationDate");
         policyHolder = new PolicyHolder();
         vehicle = new Vehicle("make", "model", "type", "fuelType", "uuid", 0, 0.0, 0.0);
 

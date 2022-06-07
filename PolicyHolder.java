@@ -3,7 +3,7 @@ import java.time.Period;
 
 public class PolicyHolder extends Helper {
     PAS main = new PAS();
-    Policy policy = new Policy();
+    Policy policy = new Policy("policyNo", "effectiveDate", "expirationDate");
     private String firstName, lastName, driversLicenseNum, type, uuid;
     private LocalDate dateOfBirth, driversLicenseIssued;
 
