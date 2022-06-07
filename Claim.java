@@ -37,6 +37,7 @@ public class Claim extends Helper {
                 System.out.print("Enter estimated cost of repair: ");
                 this.estimatedCostOfRepair = get.nextDouble();
                 System.out.println("Claim no: " + claimNo);
+                printNote("Always keep your claim number");
                 store(policyNum);
             }
         } catch(Exception e) {

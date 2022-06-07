@@ -37,6 +37,7 @@ public class CustomerAccount extends Helper {
             prep = conn.prepareStatement(query);
             prep.execute();
             System.out.println("Account No: " + accountNo);
+            printNote("Always keep your account number");
             printSuccess("Customer account has been created");
             main.backToMenu();
         } catch(Exception e) {

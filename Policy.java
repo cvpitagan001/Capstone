@@ -28,6 +28,7 @@ public class Policy extends Helper {
                 LocalDate expireDate = effectDate.plusMonths(6);
                 System.out.println("Expiration date: " + expireDate);
                 System.out.println("Policy No: " + policyNo);
+                printNote("Always keep your policy number");
                 store(effectDate, expireDate);
             }
        } catch(Exception e) {
