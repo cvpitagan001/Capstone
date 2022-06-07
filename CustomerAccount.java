@@ -122,8 +122,8 @@ public class CustomerAccount extends Helper {
         int opt = get.nextInt();
         get.nextLine();
 
-        if(opt == 1 && purpose == "load") load();
-        if(opt == 1 && purpose == "display") display();
+        if(opt == 1 && purpose.equals("load")) load();
+        if(opt == 1 && purpose.equals("display")) display();
         else main.backToMenu();
     }
 
