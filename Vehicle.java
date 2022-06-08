@@ -1,7 +1,9 @@
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Vehicle extends PolicyHolder {
     PAS main = new PAS();
+    Policy policy = new Policy("", "", "", "");
     RatingEngine rate = new RatingEngine();
     private String make, model, type, fuelType, uuid, color;
     private int year;
@@ -46,7 +48,9 @@ public class Vehicle extends PolicyHolder {
                 System.out.print("Purchase price: ");
                 purchasePrice = get.nextDouble();
                 get.nextLine();
-                premiumCharged = (purchasePrice * rate.getVpf(year)) + ((purchasePrice/100)/dlx);
+                double charged = (purchasePrice * rate.getVpf(year)) + ((purchasePrice/100)/dlx);
+                DecimalFormat df = new DecimalFormat("#.##");
+                premiumCharged = Double.valueOf(df.format(charged));
                 System.out.printf("Premium Charged: %.2f", premiumCharged);
                 uuid = getUUID();
 
@@ -104,20 +108,24 @@ public class Vehicle extends PolicyHolder {
     //store vehicle details on database
     public void store(String accountNo, String policyNo, String policyHolderUuid) {
         try {
+            double totalCost = 0;
             for (Vehicle vehicle : list) {
                 connect();
+                totalCost = totalCost + vehicle.premiumCharged;
                 String query = "INSERT INTO vehicle (uuid, customer_acc_no, policy_holder_uuid, policy_no, make, model, year, type, fuel_type, color, purchase_price, premium_charged)" +  
                 "VALUES('"+ vehicle.uuid +"', '"+ accountNo +"', '"+ policyHolderUuid +"', '"+ policyNo +"', '"+ vehicle.make +"', '"+ vehicle.model +"', '"+ vehicle.year +"', '"+ vehicle.type +"', '"+ vehicle.fuelType +"', '"+ vehicle.color +"', '"+ vehicle.purchasePrice +"', '"+ vehicle.premiumCharged +"')";
                 prep = conn.prepareStatement(query);
                 prep.execute();
             }
+            
+            policy.update("cost", String.valueOf(totalCost), policyNo);
         } catch(Exception e) {
             printError(e.toString());
             main.backToMenu();
         }
     }
 
-    //delete policy and policy holder from db if the user wont buy the policy
+    //delete policy and policy holder from db if the u5ser wont buy the policy
     public void deleteFromDb(String table, String field, String value) {
         try {
             connect();
