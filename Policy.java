@@ -37,6 +37,7 @@ public class Policy extends Helper {
        }
     }
 
+    //store policy details on db
     public void store(LocalDate effDate, LocalDate expireDate) {
         String fields = "policy_no, customer_acc_no, effective_date, expiry_date";
         String values = "'"+ policyNo +"', '"+ account.getAccountNo() +"', '"+ effDate +"', '"+ expireDate +"'";

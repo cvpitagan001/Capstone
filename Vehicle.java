@@ -32,7 +32,7 @@ public class Vehicle extends PolicyHolder {
             int x = 1;
 
             while(x <= qty) {
-                System.out.println("\n--Vehicle " + x + "--");
+                System.out.println("\n[Vehicle " + x + "]");
                 System.out.print("Make: ");
                 make = get.next().trim();
                 System.out.print("Model: ");
@@ -93,10 +93,9 @@ public class Vehicle extends PolicyHolder {
         try {
             System.out.print("\n\nDo you want to buy this Policy? [1]Yes [2]No: ");
             int opt = get.nextInt();
-
+            System.out.println();
             if(opt == 1) {
                 store(accountNo, policyNo, policyHolderUuid);
-                printSuccess("Policy Sold");
                 main.backToMenu();
             } else {
                 deleteFromDb("policy", "policy_no", policyNo);
@@ -109,34 +108,14 @@ public class Vehicle extends PolicyHolder {
         }
     }
 
-    //store vehicle details on database
+    //store policy holder details on database
     public void store(String accountNo, String policyNo, String policyHolderUuid) {
-        try {
-            for (Vehicle vehicle : list) {
-                connect();
-                String query = "INSERT INTO vehicle (uuid, customer_acc_no, policy_holder_uuid, policy_no, make, model, year, type, fuel_type, color, purchase_price, premium_charged)" +  
-                "VALUES('"+ vehicle.uuid +"', '"+ accountNo +"', '"+ policyHolderUuid +"', '"+ policyNo +"', '"+ vehicle.make +"', '"+ vehicle.model +"', '"+ vehicle.year +"', '"+ vehicle.type +"', '"+ vehicle.fuelType +"', '"+ vehicle.color +"', '"+ vehicle.purchasePrice +"', '"+ vehicle.premiumCharged +"')";
-                prep = conn.prepareStatement(query);
-                prep.execute();
-            }
-            
+        for (Vehicle vehicle : list) {
+            String fields = "uuid, customer_acc_no, policy_holder_uuid, policy_no, make, model, year, type, fuel_type, color, purchase_price, premium_charged";
+            String values = "'"+ vehicle.uuid +"', '"+ accountNo +"', '"+ policyHolderUuid +"', '"+ policyNo +"', '"+ vehicle.make +"', '"+ vehicle.model +"', '"+ vehicle.year +"', '"+ vehicle.type +"', '"+ vehicle.fuelType +"', '"+ vehicle.color +"', '"+ vehicle.purchasePrice +"', '"+ vehicle.premiumCharged +"'";
+            String msg = "Vehicle has been created";
+            storeOnDB("vehicle", fields, values, msg);
             policy.update("cost", String.valueOf(totalCost), policyNo);
-        } catch(Exception e) {
-            printError(e.toString());
-            main.backToMenu();
-        }
-    }
-
-    //delete policy and policy holder from db if the user wont buy the policy
-    public void deleteFromDb(String table, String field, String value) {
-        try {
-            connect();
-            String query = "DELETE FROM "+ table +" WHERE "+ field +"='"+ value +"'";
-            prep = conn.prepareStatement(query);
-            prep.executeUpdate();
-        } catch(Exception e) {
-            printError(e.toString());
-            main.backToMenu();
         }
     }
 

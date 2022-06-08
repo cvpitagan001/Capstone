@@ -41,6 +41,18 @@ public class Helper {
         }
     }
 
+    //delete data on database
+    public void deleteFromDb(String table, String field, String value) {
+        try {
+            connect();
+            String query = "DELETE FROM "+ table +" WHERE "+ field +"='"+ value +"'";
+            prep = conn.prepareStatement(query);
+            prep.executeUpdate();
+        } catch(Exception e) {
+            printError(e.toString());
+        }
+    }
+
     //clear screen
     public void clrscr() {
         System.out.print("\033[H\033[2J");  
