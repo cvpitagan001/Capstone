@@ -35,18 +35,13 @@ public class PolicyHolder extends Helper {
 
     //store policy holder details on database
     public void store(String policyNo) {
-        try {
-            connect();
-            String query = "INSERT INTO policy_holder (uuid, customer_acc_no, type, first_name, last_name, date_of_birth, dv_license_num, dv_license_issued) " +
-            "VALUES('"+ uuid +"', '"+ account.getAccountNo() +"','"+ this.type +"', '"+ this.firstName +"', '"+ this.lastName +"', '"+ this.dateOfBirth +"', '"+ this.driversLicenseNum +"', '"+ this.driversLicenseIssued +"')";
-            prep = conn.prepareStatement(query);
-            prep.execute();
-            policy.update("policy_holder_uuid", uuid, policyNo);
-        } catch(Exception e) {
-            printError(e.toString());
-            main.backToMenu();
-        }
+        String fields = "uuid, customer_acc_no, type, first_name, last_name, date_of_birth, dv_license_num, dv_license_issued";
+        String values = "'"+ uuid +"', '"+ account.getAccountNo() +"','"+ this.type +"', '"+ this.firstName +"', '"+ this.lastName +"', '"+ this.dateOfBirth +"', '"+ this.driversLicenseNum +"', '"+ this.driversLicenseIssued +"'";
+        String msg = "Policy holder has been created";
+        storeOnDB("policy_holder", fields, values, msg);
+        policy.update("policy_holder_uuid", uuid, policyNo);
     }
+
 
     //get self uuid
     public String getOwnUUID() {
