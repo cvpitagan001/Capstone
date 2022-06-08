@@ -26,7 +26,7 @@ public class Vehicle extends PolicyHolder {
     //user input for vehicle details
     public void load(int dlx, String accountNo, String policyHolderUuid, String policyNo) {
         try {
-            System.out.println("--Vehicle Details--");
+            System.out.println("[Vehicle Details]");
             System.out.print("How many vehicles do you want to insured: ");
             int qty = get.nextInt();
             int x = 1;

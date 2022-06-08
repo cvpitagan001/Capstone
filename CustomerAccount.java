@@ -23,6 +23,7 @@ public class CustomerAccount extends Helper {
             this.lastName = get.nextLine();
             System.out.print("Enter address: ");
             this.address = get.nextLine();
+            System.out.println("Account no: " + accountNo);
 
             checkAccountViaName();
             if(isAccountExist == false) store();
@@ -54,21 +55,13 @@ public class CustomerAccount extends Helper {
         }
     }
 
-    //store customer account details on database
+    //store customer account details on DB
     public void store() {
-        try {
-            connect();
-            String query = "INSERT INTO customer_acc (account_no, first_name, last_name, address) VALUES('"+this.accountNo+"', '"+this.firstName+"', '"+this.lastName+"', '"+this.address+"')";
-            prep = conn.prepareStatement(query);
-            prep.execute();
-            System.out.println("Account No: " + accountNo);
-            printNote("Always keep your account number");
-            printSuccess("Customer account has been created");
-            main.backToMenu();
-        } catch(Exception e) {
-            printError("Customer create failed");
-            main.backToMenu();
-        }
+        String fields = "account_no, first_name, last_name, address";
+        String values = "'"+this.accountNo+"', '"+this.firstName+"', '"+this.lastName+"', '"+this.address+"'";
+        String msg = "Customer account has been created";
+        storeOnDB("customer_acc", fields, values, msg);
+        main.backToMenu();
     }
 
     //check account if exist using account number

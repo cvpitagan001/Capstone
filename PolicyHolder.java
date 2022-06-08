@@ -10,7 +10,7 @@ public class PolicyHolder extends Helper {
     //user input for policy holder details
     public void load(String policyNo) {
         try {
-            System.out.println("--Policy Holder Details--");
+            System.out.println("[Policy Holder Details]");
             System.out.print("Enter first name: ");
             this.firstName = get.nextLine();
             System.out.print("Enter last name: ");

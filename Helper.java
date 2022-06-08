@@ -28,6 +28,19 @@ public class Helper {
         }
     }
 
+    //store data on database
+    public void storeOnDB(String table, String fields, String values, String msg) {
+        try {
+            connect();
+            String query = "INSERT INTO "+ table +" ("+ fields +") VALUES("+ values +")";
+            prep = conn.prepareStatement(query);
+            prep.execute();
+            printSuccess(msg);
+        } catch(Exception e) {
+            printError(e.toString());
+        }
+    }
+
     //clear screen
     public void clrscr() {
         System.out.print("\033[H\033[2J");  

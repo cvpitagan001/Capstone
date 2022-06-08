@@ -28,8 +28,8 @@ public class Policy extends Helper {
                 LocalDate effectDate = LocalDate.parse(this.effectiveDate);
                 LocalDate expireDate = effectDate.plusMonths(6);
                 System.out.println("Expiration date: " + expireDate);
-                System.out.println("Policy No: " + policyNo);
-                printNote("Always keep your policy number");
+                System.out.println("Policy no: " + policyNo);
+
                 store(effectDate, expireDate);
             }
        } catch(Exception e) {
@@ -37,18 +37,11 @@ public class Policy extends Helper {
        }
     }
 
-    //store policy details on database
     public void store(LocalDate effDate, LocalDate expireDate) {
-        try {
-            connect();
-            String query = "INSERT INTO policy (policy_no, customer_acc_no, effective_date, expiry_date)" +  
-            "VALUES('"+ policyNo +"', '"+ account.getAccountNo() +"', '"+ effDate +"', '"+ expireDate +"')";
-            prep = conn.prepareStatement(query);
-            prep.execute();
-        } catch(Exception e) {
-            printError("Policy create failed");
-            main.backToMenu();
-        }
+        String fields = "policy_no, customer_acc_no, effective_date, expiry_date";
+        String values = "'"+ policyNo +"', '"+ account.getAccountNo() +"', '"+ effDate +"', '"+ expireDate +"'";
+        String msg = "Policy has been created";
+        storeOnDB("policy", fields, values, msg);
     }
 
     //update policy details on database
