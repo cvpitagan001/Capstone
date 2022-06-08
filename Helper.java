@@ -49,22 +49,22 @@ public class Helper {
 
     // print success
     public void printSuccess(String msg) {
-        System.out.println("\nSuccess: " + msg);
+        System.out.println("\n[Success: " + msg + "]\n");
     }
 
     //return success
     public String returnSuccess(String msg) {
-        return "\nSuccess: " + msg;
+        return "\n[Success: " + msg + "]\n";
     }    
 
     //print error
     public void printError(String msg) {
-        System.out.println("\nError: " + msg);
+        System.out.println("\n[Error: " + msg + "]\n");
     }
 
     //return error
     public String returnError(String msg) {
-        return "\nError: " + msg;
+        return "\n[Error: " + msg + "]\n";
     }
 
     //get account details

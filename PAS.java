@@ -67,7 +67,7 @@ public class PAS extends Helper {
     //Back to menu
     public void backToMenu() {
         try {
-            System.out.print("\nGo back to menu? Press [1]YES [2]NO: ");
+            System.out.print("Go back to menu? Press [1]YES [2]NO: ");
             int opt = get.nextInt();
             get.nextLine();
 
