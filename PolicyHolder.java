@@ -28,7 +28,7 @@ public class PolicyHolder extends Helper {
 
             store(policyNo);
         } catch(Exception e) {
-            printError("Something went wrong");
+            printError(e.toString());
             main.backToMenu();
         }
     }
@@ -43,8 +43,7 @@ public class PolicyHolder extends Helper {
             prep.execute();
             policy.update("policy_holder_uuid", uuid, policyNo);
         } catch(Exception e) {
-            e.printStackTrace();
-            printError("Policy holder creation failed");
+            printError(e.toString());
             main.backToMenu();
         }
     }
