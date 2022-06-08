@@ -3,13 +3,13 @@ import java.util.ArrayList;
 public class Vehicle extends PolicyHolder {
     PAS main = new PAS();
     RatingEngine rate = new RatingEngine();
-    private String make, model, type, fuelType, uuid;
+    private String make, model, type, fuelType, uuid, color;
     private int year;
     private double purchasePrice, premiumCharged;
     private ArrayList<Vehicle> list = new ArrayList<Vehicle>();
 
     public Vehicle(String make, String model, String type, String fuelType, String uuid,
-            int year, double purchasePrice, double premiumCharged) {
+            int year, double purchasePrice, double premiumCharged, String color) {
         this.make = make;
         this.model = model;
         this.type = type;
@@ -18,6 +18,7 @@ public class Vehicle extends PolicyHolder {
         this.year = year;
         this.purchasePrice = purchasePrice;
         this.premiumCharged = premiumCharged;
+        this.color = color;
     }
 
     //user input for vehicle details
@@ -40,6 +41,8 @@ public class Vehicle extends PolicyHolder {
                 type = get.next().trim();
                 System.out.print("Fuel Type: ");
                 fuelType = get.next().trim();
+                System.out.print("Color: ");
+                color = get.next().trim();
                 System.out.print("Purchase price: ");
                 purchasePrice = get.nextDouble();
                 get.nextLine();
@@ -47,7 +50,7 @@ public class Vehicle extends PolicyHolder {
                 System.out.printf("Premium Charged: %.2f", premiumCharged);
                 uuid = getUUID();
 
-                list.add(new Vehicle(make, model, type, fuelType, uuid, year, purchasePrice, premiumCharged));
+                list.add(new Vehicle(make, model, type, fuelType, uuid, year, purchasePrice, premiumCharged, color));
                 if(qty == x) display(accountNo, policyNo, policyHolderUuid);
                 x++;
             }
@@ -64,12 +67,13 @@ public class Vehicle extends PolicyHolder {
         System.out.format("%n%-30s%n", "[Policy Holder Details]");
         System.out.format("%-15s %-15s %-15s%n", "AccountNo", "FirstName", "LastName");
         System.out.format("%-15s %-15s %-15s%n", accountNo, account.getFirstName(), account.getLastName());
-        System.out.format("%-30s%n", "[Vehicle Details]");
-        System.out.format("%-15s %-15s %-15s %-15s %-15s %-15s %-15s%n", "Make", "Model", "Type",
-                                                                "FuelType", "Year", "PurchasePrice","PremiumCharged");
+        System.out.format("%n%-30s%n", "[Vehicle Details]");
+        System.out.format("%-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s%n", "Make", "Model", "Type",
+                                                                "FuelType", "Year", "Color", "PurchasePrice","PremiumCharged");
         for (Vehicle vehicle : list) {
-            System.out.format("%-15s %-15s %-15s %-15s %-15s %-15s %-15s%n", vehicle.make, vehicle.model, vehicle.type,
-                                                                                    vehicle.fuelType, vehicle.year, vehicle.purchasePrice,
+            System.out.format("%-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s%n", vehicle.make, vehicle.model, vehicle.type,
+                                                                                    vehicle.fuelType, vehicle.year, vehicle.color,
+                                                                                    vehicle.purchasePrice,
                                                                                     vehicle.premiumCharged);
         }
 
@@ -102,8 +106,8 @@ public class Vehicle extends PolicyHolder {
         try {
             for (Vehicle vehicle : list) {
                 connect();
-                String query = "INSERT INTO vehicle (uuid, customer_acc_no, policy_holder_uuid, policy_no, make, model, year, type, fuel_type, purchase_price, premium_charged)" +  
-                "VALUES('"+ vehicle.uuid +"', '"+ accountNo +"', '"+ policyHolderUuid +"', '"+ policyNo +"', '"+ vehicle.make +"', '"+ vehicle.model +"', '"+ vehicle.year +"', '"+ vehicle.type +"', '"+ vehicle.fuelType +"', '"+ vehicle.purchasePrice +"', '"+ vehicle.premiumCharged +"')";
+                String query = "INSERT INTO vehicle (uuid, customer_acc_no, policy_holder_uuid, policy_no, make, model, year, type, fuel_type, color, purchase_price, premium_charged)" +  
+                "VALUES('"+ vehicle.uuid +"', '"+ accountNo +"', '"+ policyHolderUuid +"', '"+ policyNo +"', '"+ vehicle.make +"', '"+ vehicle.model +"', '"+ vehicle.year +"', '"+ vehicle.type +"', '"+ vehicle.fuelType +"', '"+ vehicle.color +"', '"+ vehicle.purchasePrice +"', '"+ vehicle.premiumCharged +"')";
                 prep = conn.prepareStatement(query);
                 prep.execute();
             }

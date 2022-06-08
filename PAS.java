@@ -10,7 +10,7 @@ public class PAS extends Helper {
         account = new CustomerAccount("", "", "", "");
         policy = new Policy("", "", "", "");
         policyHolder = new PolicyHolder();
-        vehicle = new Vehicle("", "", "", "", "", 0, 0.0, 0.0);
+        vehicle = new Vehicle("", "", "", "", "", 0, 0.0, 0.0, "");
         claim = new Claim("", "", "", "", "", 0.0);
         try {
             System.out.println("[The Automobile Insurance Policy and Claims Administration System (PAS) Specification]\n");   
