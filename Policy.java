@@ -16,7 +16,7 @@ public class Policy extends Helper {
     public void load() {
         clrscr();
        try {
-            System.out.println("--Get a policy qoute and buy the policy--");
+            System.out.println("[Get a policy qoute and buy the policy]");
             account.checkAccountIfExist();
             if(account.isAccountExist() == false) {
                 tryAgain("Account doesn't exist");
@@ -69,7 +69,7 @@ public class Policy extends Helper {
     public void cancelPolicy() {
         try {
             clrscr();
-            System.out.println("\n--Cancel Policy--");
+            System.out.println("\n[Cancel Policy]");
             System.out.print("Enter policy no.: ");
             String policyNum = get.next().trim();
             selectPolicy(policyNum);
@@ -116,6 +116,7 @@ public class Policy extends Helper {
     public void display() {
         clrscr();
         try {
+            System.out.println("[Search Policy]");
             System.out.print("Enter policy no: ");
             String policyNum = get.next().trim();
             selectPolicy(policyNum);

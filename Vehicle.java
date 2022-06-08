@@ -7,7 +7,7 @@ public class Vehicle extends PolicyHolder {
     RatingEngine rate = new RatingEngine();
     private String make, model, type, fuelType, uuid, color;
     private int year;
-    private double purchasePrice, premiumCharged;
+    private double purchasePrice, premiumCharged, totalCost;
     private ArrayList<Vehicle> list = new ArrayList<Vehicle>();
 
     public Vehicle(String make, String model, String type, String fuelType, String uuid,
@@ -52,6 +52,7 @@ public class Vehicle extends PolicyHolder {
                 DecimalFormat df = new DecimalFormat("#.##");
                 premiumCharged = Double.valueOf(df.format(charged));
                 System.out.printf("Premium Charged: %.2f", premiumCharged);
+                totalCost = totalCost + premiumCharged;
                 uuid = getUUID();
 
                 list.add(new Vehicle(make, model, type, fuelType, uuid, year, purchasePrice, premiumCharged, color));
@@ -80,6 +81,9 @@ public class Vehicle extends PolicyHolder {
                                                                                     vehicle.purchasePrice,
                                                                                     vehicle.premiumCharged);
         }
+        
+        System.out.format("%-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s%n", "---", "---", "---",
+        "---", "---", "---", "Total: ", totalCost);
 
         buyPolicy(accountNo, policyNo, policyHolderUuid);
     }
@@ -108,10 +112,8 @@ public class Vehicle extends PolicyHolder {
     //store vehicle details on database
     public void store(String accountNo, String policyNo, String policyHolderUuid) {
         try {
-            double totalCost = 0;
             for (Vehicle vehicle : list) {
                 connect();
-                totalCost = totalCost + vehicle.premiumCharged;
                 String query = "INSERT INTO vehicle (uuid, customer_acc_no, policy_holder_uuid, policy_no, make, model, year, type, fuel_type, color, purchase_price, premium_charged)" +  
                 "VALUES('"+ vehicle.uuid +"', '"+ accountNo +"', '"+ policyHolderUuid +"', '"+ policyNo +"', '"+ vehicle.make +"', '"+ vehicle.model +"', '"+ vehicle.year +"', '"+ vehicle.type +"', '"+ vehicle.fuelType +"', '"+ vehicle.color +"', '"+ vehicle.purchasePrice +"', '"+ vehicle.premiumCharged +"')";
                 prep = conn.prepareStatement(query);
