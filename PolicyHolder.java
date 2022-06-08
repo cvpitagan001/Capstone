@@ -39,7 +39,7 @@ public class PolicyHolder extends Helper {
         String values = "'"+ uuid +"', '"+ account.getAccountNo() +"','"+ this.type +"', '"+ this.firstName +"', '"+ this.lastName +"', '"+ this.dateOfBirth +"', '"+ this.driversLicenseNum +"', '"+ this.driversLicenseIssued +"'";
         String msg = "Policy holder has been created";
         storeOnDB("policy_holder", fields, values, msg);
-        policy.update("policy_holder_uuid", uuid, policyNo);
+        policy.update("policy", "policy_holder_uuid", uuid, "policy_no", policyNo);
     }
 
 

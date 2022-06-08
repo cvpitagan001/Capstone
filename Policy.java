@@ -45,20 +45,6 @@ public class Policy extends Helper {
         storeOnDB("policy", fields, values, msg);
     }
 
-    //update policy details on database
-    public void update(String field, String value, String policyNo) {
-        try {
-            connect();
-            String query = "UPDATE policy SET "+ field +" = '"+ value +"' WHERE policy_no='"+ policyNo +"'";
-            prep = conn.prepareStatement(query);
-            prep.execute();
-        } catch(Exception e) {
-            e.printStackTrace();
-            printError("Policy update failed");
-            main.backToMenu();
-        }
-    }
-
     //cancel policy
     public void cancelPolicy() {
         try {
@@ -73,7 +59,7 @@ public class Policy extends Helper {
             } else {
                 System.out.print("Enter new expiry date: ");
                 String newExpiryDate = get.next().trim();
-                update("expiry_date", newExpiryDate, policyNum);
+                update("policy", "expiry_date", newExpiryDate, "policy_no", policyNum);
                 printSuccess("Policy expiry date has been updated");
 
                 main.backToMenu();

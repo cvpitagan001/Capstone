@@ -41,6 +41,18 @@ public class Helper {
         }
     }
 
+    //update data on database
+    public void update(String table, String fields, String value, String baseField, String baseNum) {
+        try {
+            connect();
+            String query = "UPDATE "+ table +" SET "+ fields +" = '"+ value +"' WHERE "+ baseField +"='"+ baseNum +"'";
+            prep = conn.prepareStatement(query);
+            prep.execute();
+        } catch(Exception e) {
+            printError(e.toString());
+        }
+    }
+
     //delete data on database
     public void deleteFromDb(String table, String field, String value) {
         try {

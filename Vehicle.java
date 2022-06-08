@@ -115,7 +115,7 @@ public class Vehicle extends PolicyHolder {
             String values = "'"+ vehicle.uuid +"', '"+ accountNo +"', '"+ policyHolderUuid +"', '"+ policyNo +"', '"+ vehicle.make +"', '"+ vehicle.model +"', '"+ vehicle.year +"', '"+ vehicle.type +"', '"+ vehicle.fuelType +"', '"+ vehicle.color +"', '"+ vehicle.purchasePrice +"', '"+ vehicle.premiumCharged +"'";
             String msg = "Vehicle has been created";
             storeOnDB("vehicle", fields, values, msg);
-            policy.update("cost", String.valueOf(totalCost), policyNo);
+            policy.update("policy", "cost", String.valueOf(totalCost), "policy_no", policyNo);
         }
     }
 
