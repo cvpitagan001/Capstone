@@ -35,7 +35,7 @@ public class Helper {
             String query = "INSERT INTO "+ table +" ("+ fields +") VALUES("+ values +")";
             prep = conn.prepareStatement(query);
             prep.execute();
-            printSuccess(msg);
+            if(msg.length() > 0) printSuccess(msg);
         } catch(Exception e) {
             printError(e.toString());
         }

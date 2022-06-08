@@ -93,7 +93,6 @@ public class Vehicle extends PolicyHolder {
         try {
             System.out.print("\n\nDo you want to buy this Policy? [1]Yes [2]No: ");
             int opt = get.nextInt();
-            System.out.println();
             if(opt == 1) {
                 store(accountNo, policyNo, policyHolderUuid);
                 main.backToMenu();
@@ -113,10 +112,10 @@ public class Vehicle extends PolicyHolder {
         for (Vehicle vehicle : list) {
             String fields = "uuid, customer_acc_no, policy_holder_uuid, policy_no, make, model, year, type, fuel_type, color, purchase_price, premium_charged";
             String values = "'"+ vehicle.uuid +"', '"+ accountNo +"', '"+ policyHolderUuid +"', '"+ policyNo +"', '"+ vehicle.make +"', '"+ vehicle.model +"', '"+ vehicle.year +"', '"+ vehicle.type +"', '"+ vehicle.fuelType +"', '"+ vehicle.color +"', '"+ vehicle.purchasePrice +"', '"+ vehicle.premiumCharged +"'";
-            String msg = "Vehicle has been created";
-            storeOnDB("vehicle", fields, values, msg);
-            policy.update("policy", "cost", String.valueOf(totalCost), "policy_no", policyNo);
+            storeOnDB("vehicle", fields, values, "");
         }
+        policy.update("policy", "cost", String.valueOf(totalCost), "policy_no", policyNo);
+        printSuccess("Policy sold");
     }
 
 }
