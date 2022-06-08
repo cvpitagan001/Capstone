@@ -48,7 +48,7 @@ public class Vehicle extends PolicyHolder {
                 System.out.print("Purchase price: ");
                 purchasePrice = get.nextDouble();
                 get.nextLine();
-                double charged = (purchasePrice * rate.getVpf(year)) + ((purchasePrice/100)/dlx);
+                double charged = (purchasePrice * rate.getVpf(year)) + ((purchasePrice / 100) / dlx);
                 DecimalFormat df = new DecimalFormat("#.##");
                 premiumCharged = Double.valueOf(df.format(charged));
                 System.out.printf("Premium Charged: %.2f", premiumCharged);
@@ -127,7 +127,7 @@ public class Vehicle extends PolicyHolder {
         }
     }
 
-    //delete policy and policy holder from db if the u5ser wont buy the policy
+    //delete policy and policy holder from db if the user wont buy the policy
     public void deleteFromDb(String table, String field, String value) {
         try {
             connect();
