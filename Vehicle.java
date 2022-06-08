@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Vehicle extends PolicyHolder {
     PAS main = new PAS();
-    Policy policy = new Policy("", "", "", "");
+    Policy policy = new Policy("", "", "", "", 0);
     RatingEngine rate = new RatingEngine();
     private String make, model, type, fuelType, uuid, color;
     private int year;

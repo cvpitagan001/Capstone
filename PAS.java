@@ -8,7 +8,7 @@ public class PAS extends Helper {
     // Menu
     public void mainMenu() {
         account = new CustomerAccount("", "", "", "");
-        policy = new Policy("", "", "", "");
+        policy = new Policy("", "", "", "", 0);
         policyHolder = new PolicyHolder();
         vehicle = new Vehicle("", "", "", "", "", 0, 0.0, 0.0, "");
         claim = new Claim("", "", "", "", "", 0.0);

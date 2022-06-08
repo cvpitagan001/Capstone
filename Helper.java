@@ -104,8 +104,8 @@ public class Helper {
     }
 
     //get policy details
-    public void getPolicyDetails(String policyNo, String effectiveDate, String expiryDate, String status) {
-        policy = new Policy(policyNo, effectiveDate, expiryDate, status);
+    public void getPolicyDetails(String policyNo, String effectiveDate, String expiryDate, String status, double cost) {
+        policy = new Policy(policyNo, effectiveDate, expiryDate, status, cost);
     }
 
     //get claim details

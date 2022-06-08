@@ -4,12 +4,14 @@ public class Policy extends Helper {
     PAS main = new PAS();
     private String policyNo, effectiveDate, expirationDate, status;
     private boolean isPolicyExist = true;
+    private double cost;
 
-    public Policy(String policyNo, String effectiveDate, String expirationDate, String status) {
+    public Policy(String policyNo, String effectiveDate, String expirationDate, String status, double cost) {
         this.policyNo = policyNo;
         this.effectiveDate = effectiveDate;
         this.expirationDate = expirationDate;
         this.status = status;
+        this.cost = cost;
     }
 
     //user input for policy details
@@ -83,7 +85,8 @@ public class Policy extends Helper {
                 getPolicyDetails(result.getString("policy_no"),
                                 result.getString("effective_date"),
                                 result.getString("expiry_date"),
-                                result.getString("status")
+                                result.getString("status"),
+                                result.getDouble("cost")
                                 );
             }
         } catch(Exception e) {
@@ -105,8 +108,8 @@ public class Policy extends Helper {
                 main.backToMenu();
             } else {
                 System.out.println("\n[Policy Details]");
-                System.out.format("%-15s %-15s %-15s %-15s%n", "PolicyNo", "EffectiveDate", "ExpiryDate", "Status");
-                System.out.format("%-15s %-15s %-15s %-15s%n", policy.getPolicyNo(), policy.getEffectiveDate(), policy.getExpirationDate(), policy.getStatus());
+                System.out.format("%-15s %-15s %-15s %-15s %-15s%n", "PolicyNo", "EffectiveDate", "ExpiryDate", "Status", "Cost");
+                System.out.format("%-15s %-15s %-15s %-15s %-15s%n%n", policy.getPolicyNo(), policy.getEffectiveDate(), policy.getExpirationDate(), policy.getStatus(), policy.getCost());
                 main.backToMenu();
             }
         } catch(Exception e) {
@@ -133,6 +136,10 @@ public class Policy extends Helper {
 
     public boolean getIsPolicyExist() {
         return isPolicyExist;
+    }
+
+    public double getCost() {
+        return cost;
     }
 
     public void tryAgain(String msg) {
