@@ -1,3 +1,10 @@
+/**
+ * Java Course 4
+ * 
+ * Capstone Project 
+ *
+ * @author Charles Vincent Pitagan
+ */
 public class PAS extends Helper {
 
     public static void main(String[] args) {
