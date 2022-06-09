@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class Vehicle extends PolicyHolder {
     PAS main = new PAS();
-    Policy policy = new Policy("", "", "", "", 0);
     RatingEngine rate = new RatingEngine();
+    Policy policy = new Policy("", "", "", "", 0);
     private String make, model, type, fuelType, uuid, color;
     private int year;
     private double purchasePrice, premiumCharged, totalCost;
@@ -48,9 +48,7 @@ public class Vehicle extends PolicyHolder {
                 System.out.print("Purchase price: ");
                 purchasePrice = get.nextDouble();
                 get.nextLine();
-                double charged = (purchasePrice * rate.getVpf(year)) + ((purchasePrice / 100) / dlx);
-                DecimalFormat df = new DecimalFormat("#.##");
-                premiumCharged = Double.valueOf(df.format(charged));
+                premiumCharged = rate.calculatePremium(purchasePrice, year, dlx);
                 System.out.printf("Premium Charged: %.2f", premiumCharged);
                 totalCost = totalCost + premiumCharged;
                 uuid = getUUID();

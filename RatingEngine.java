@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 public class RatingEngine {
@@ -14,6 +15,12 @@ public class RatingEngine {
         if(ageOfVehicle >= 20 && ageOfVehicle < 40) return 0.002;
         if(ageOfVehicle >= 40) return 0.001;
         return vpf;
+    }
+
+    public double calculatePremium(double purchasePrice, int year, int dlx) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        double charged = (purchasePrice * getVpf(year)) + ((purchasePrice / 100) / dlx);
+        return Double.valueOf(df.format(charged));       
     }
     
 }
