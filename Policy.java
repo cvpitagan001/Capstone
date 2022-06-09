@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Policy extends Helper {
     PAS main = new PAS();
@@ -21,7 +22,7 @@ public class Policy extends Helper {
             System.out.println("[Get a policy qoute and buy the policy]");
             account.checkAccountIfExist();
             if(account.isAccountExist() == false) {
-                tryAgain("Account doesn't exist");
+                tryAgain("Account doesn't exist", "load");
             } else {
                 int generateNum = rand.nextInt(999999);
                 policyNo = String.format("%06d", generateNum);
@@ -35,7 +36,7 @@ public class Policy extends Helper {
                 store(effectDate, expireDate);
             }
        } catch(Exception e) {
-            tryAgain(e.toString());
+            tryAgain(e.toString(), "load");
        }
     }
 
@@ -56,13 +57,21 @@ public class Policy extends Helper {
             String policyNum = get.next().trim();
             selectPolicy(policyNum);
             if(isPolicyExist == false) {
-                printError("Policy doesn't exist");
-                main.backToMenu();
+                tryAgain("Policy doesn't exist", "cancel");
             } else {
+                if(policy.status.equals("Cancelled") || policy.equals("Expired")) tryAgain("Policy has been cancelled or expired", "cancel");
+
                 System.out.print("Enter new expiry date: ");
                 String newExpiryDate = get.next().trim();
+                LocalDate parseNewExpDate = LocalDate.parse(newExpiryDate);
+                LocalDate parseEffDate = LocalDate.parse(policy.effectiveDate);
+                
+                int diffInMonths = Period.between(parseEffDate, parseNewExpDate).getMonths();
+                if(diffInMonths < 0 || diffInMonths > 6) tryAgain("The new expiry date should be on or after 6 months of the effective date.", "cancel");
+                if(diffInMonths == 0) update("policy", "status", "Cancelled", "policy_no", policyNum);
+               
                 update("policy", "expiry_date", newExpiryDate, "policy_no", policyNum);
-                printSuccess("Policy expiry date has been updated");
+                printSuccess("Policy expiry_date||status has been updated");
 
                 main.backToMenu();
             }
@@ -82,6 +91,7 @@ public class Policy extends Helper {
             result = createStmt.executeQuery(query);
             if(!result.next()) isPolicyExist = false;
             else {
+                isPolicyExist = true;
                 getPolicyDetails(result.getString("policy_no"),
                                 result.getString("effective_date"),
                                 result.getString("expiry_date"),
@@ -142,12 +152,13 @@ public class Policy extends Helper {
         return cost;
     }
 
-    public void tryAgain(String msg) {
+    public void tryAgain(String msg, String purpose) {
         System.out.print("\nError: " + msg + "\n\nTry Again? [1]Yes [2]No: ");
         int opt = get.nextInt();
         get.nextLine();
-
-        if(opt == 1) load();
+        
+        if(opt == 1 && purpose.equals("load")) load();
+        if(opt == 1 && purpose.equals("cancel")) cancelPolicy();
         else main.backToMenu();
     }
     
