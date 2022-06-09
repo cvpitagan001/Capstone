@@ -23,7 +23,6 @@ public class CustomerAccount extends Helper {
             this.lastName = get.nextLine();
             System.out.print("Enter address: ");
             this.address = get.nextLine();
-            System.out.println("Account no: " + accountNo);
 
             checkAccountViaName();
             if(isAccountExist == false) store();
@@ -59,6 +58,7 @@ public class CustomerAccount extends Helper {
     public void store() {
         String fields = "account_no, first_name, last_name, address";
         String values = "'"+this.accountNo+"', '"+this.firstName+"', '"+this.lastName+"', '"+this.address+"'";
+        System.out.println("Account no: " + accountNo);
         String msg = "Customer account has been created";
         storeOnDB("customer_acc", fields, values, msg);
         main.backToMenu();
