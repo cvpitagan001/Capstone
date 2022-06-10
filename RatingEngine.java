@@ -17,6 +17,7 @@ public class RatingEngine {
         return vpf;
     }
 
+    //calculate premium charged
     public double calculatePremium(double purchasePrice, int year, int dlx) {
         DecimalFormat df = new DecimalFormat("#.##");
         double charged = (purchasePrice * getVpf(year)) + ((purchasePrice / 100) / dlx);
